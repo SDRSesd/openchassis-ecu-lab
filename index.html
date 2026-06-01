@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenChassis ECU Lab</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <header class="site-header">
+        <div>
+            <p class="eyebrow">Automotive Embedded Controls Simulator</p>
+            <h1>OpenChassis ECU Lab</h1>
+            <p class="subtitle">
+                A browser-based chassis control simulator for ABS, EPS,
+                steering angle sensor plausibility, diagnostics, and CAN-style signals.
+            </p>
+        </div>
+    </header>
+
+    <main class="page-shell">
+
+        <section class="hero-card">
+            <div>
+                <h2>Project Objective</h2>
+                <p>
+                    This project demonstrates simplified automotive ECU control logic
+                    using a visual simulator. The first version focuses on software
+                    simulation before moving towards a low-cost hardware bench.
+                </p>
+            </div>
+
+            <div class="status-box">
+                <span class="status-label">Current Build</span>
+                <strong>Phase 1</strong>
+                <small>Project skeleton and dashboard base</small>
+            </div>
+        </section>
+
+        <section class="module-grid">
+            <article class="module-card">
+                <h3>ABS ECU</h3>
+                <p>
+                    Wheel slip calculation, brake pressure modulation,
+                    ABS active state, and wheel-speed fault behavior.
+                </p>
+                <span class="tag planned">Planned</span>
+            </article>
+
+            <article class="module-card">
+                <h3>EPS ECU</h3>
+                <p>
+                    Speed-based steering assist, driver torque input,
+                    assist reduction, and fallback mode.
+                </p>
+                <span class="tag planned">Planned</span>
+            </article>
+
+            <article class="module-card">
+                <h3>Steering Angle Sensor</h3>
+                <p>
+                    Dual sensor comparison, angle range validation,
+                    rate plausibility, and DTC generation.
+                </p>
+                <span class="tag planned">Planned</span>
+            </article>
+
+            <article class="module-card">
+                <h3>Diagnostics</h3>
+                <p>
+                    Simulated DTCs, fault injection, ECU state flags,
+                    and CAN-style message viewer.
+                </p>
+                <span class="tag planned">Planned</span>
+            </article>
+        </section>
+
+        <section class="dashboard-placeholder">
+            <h2>Simulator Area</h2>
+            <p>
+                The live dashboard will be added in the next phase.
+                This section will display vehicle speed, wheel speed,
+                brake input, steering angle, ECU status, and diagnostic faults.
+            </p>
+
+            <div class="placeholder-panel">
+                <div>
+                    <span>Vehicle Speed</span>
+                    <strong id="vehicle-speed">0 km/h</strong>
+                </div>
+
+                <div>
+                    <span>ABS Status</span>
+                    <strong id="abs-status">Inactive</strong>
+                </div>
+
+                <div>
+                    <span>EPS Status</span>
+                    <strong id="eps-status">Standby</strong>
+                </div>
+
+                <div>
+                    <span>DTC Count</span>
+                    <strong id="dtc-count">0</strong>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>
+            Educational automotive embedded controls simulator.
+            Not intended for real vehicle deployment.
+        </p>
+    </footer>
+
+    <script src="src/main.js"></script>
+</body>
+</html>
