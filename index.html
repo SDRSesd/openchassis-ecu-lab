@@ -13,8 +13,8 @@
             <p class="eyebrow">Automotive Embedded Controls Simulator</p>
             <h1>OpenChassis ECU Lab</h1>
             <p class="subtitle">
-                A browser-based chassis control simulator for ABS, EPS,
-                steering angle sensor plausibility, diagnostics, and CAN-style signals.
+                Small browser based simulator for trying out ABS, EPS,
+                steering angle sensor logic and diagnostic states.
             </p>
         </div>
     </header>
@@ -25,16 +25,102 @@
             <div>
                 <h2>Project Objective</h2>
                 <p>
-                    This project demonstrates simplified automotive ECU control logic
-                    using a visual simulator. The first version focuses on software
-                    simulation before moving towards a low-cost hardware bench.
+                    This project is being built as a simple public demo for chassis
+                    control logic. The current version adds driver inputs and a basic
+                    vehicle speed model.
                 </p>
             </div>
 
             <div class="status-box">
                 <span class="status-label">Current Build</span>
-                <strong>Phase 1</strong>
-                <small>Project skeleton and dashboard base</small>
+                <strong>Phase 2</strong>
+                <small>Driver inputs and basic speed model</small>
+            </div>
+        </section>
+
+        <section class="control-panel">
+            <h2>Driver Inputs</h2>
+
+            <div class="control-grid">
+                <label class="control-card">
+                    <span>Throttle</span>
+                    <input id="throttle-input" type="range" min="0" max="100" value="0" />
+                    <strong id="throttle-value">0%</strong>
+                </label>
+
+                <label class="control-card">
+                    <span>Brake Pedal</span>
+                    <input id="brake-input" type="range" min="0" max="100" value="0" />
+                    <strong id="brake-value">0%</strong>
+                </label>
+
+                <label class="control-card">
+                    <span>Steering Angle</span>
+                    <input id="steering-input" type="range" min="-540" max="540" value="0" />
+                    <strong id="steering-value">0 deg</strong>
+                </label>
+
+                <label class="control-card">
+                    <span>Road Surface</span>
+                    <select id="road-mode">
+                        <option value="dry">Dry</option>
+                        <option value="wet">Wet</option>
+                        <option value="ice">Ice</option>
+                    </select>
+                    <strong id="road-value">Dry</strong>
+                </label>
+            </div>
+        </section>
+
+        <section class="dashboard-section">
+            <h2>Live Dashboard</h2>
+
+            <div class="dashboard-grid">
+                <div class="data-card">
+                    <span>Vehicle Speed</span>
+                    <strong id="vehicle-speed">0 km/h</strong>
+                </div>
+
+                <div class="data-card">
+                    <span>Brake Pressure</span>
+                    <strong id="brake-pressure">0%</strong>
+                </div>
+
+                <div class="data-card">
+                    <span>Steering Angle</span>
+                    <strong id="steering-display">0 deg</strong>
+                </div>
+
+                <div class="data-card">
+                    <span>Road Mode</span>
+                    <strong id="road-display">Dry</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-section">
+            <h2>Wheel Speed Values</h2>
+
+            <div class="wheel-grid">
+                <div class="data-card">
+                    <span>Front Left</span>
+                    <strong id="wheel-fl">0 km/h</strong>
+                </div>
+
+                <div class="data-card">
+                    <span>Front Right</span>
+                    <strong id="wheel-fr">0 km/h</strong>
+                </div>
+
+                <div class="data-card">
+                    <span>Rear Left</span>
+                    <strong id="wheel-rl">0 km/h</strong>
+                </div>
+
+                <div class="data-card">
+                    <span>Rear Right</span>
+                    <strong id="wheel-rr">0 km/h</strong>
+                </div>
             </div>
         </section>
 
@@ -42,17 +128,15 @@
             <article class="module-card">
                 <h3>ABS ECU</h3>
                 <p>
-                    Wheel slip calculation, brake pressure modulation,
-                    ABS active state, and wheel-speed fault behavior.
+                    Slip calculation will be added in the next phase.
                 </p>
-                <span class="tag planned">Planned</span>
+                <span class="tag planned">Next</span>
             </article>
 
             <article class="module-card">
                 <h3>EPS ECU</h3>
                 <p>
-                    Speed-based steering assist, driver torque input,
-                    assist reduction, and fallback mode.
+                    Speed based steering assist will be added after ABS logic.
                 </p>
                 <span class="tag planned">Planned</span>
             </article>
@@ -60,8 +144,7 @@
             <article class="module-card">
                 <h3>Steering Angle Sensor</h3>
                 <p>
-                    Dual sensor comparison, angle range validation,
-                    rate plausibility, and DTC generation.
+                    Dual sensor check and plausibility logic will be added later.
                 </p>
                 <span class="tag planned">Planned</span>
             </article>
@@ -69,50 +152,17 @@
             <article class="module-card">
                 <h3>Diagnostics</h3>
                 <p>
-                    Simulated DTCs, fault injection, ECU state flags,
-                    and CAN-style message viewer.
+                    DTC list and fault injection switches are planned.
                 </p>
                 <span class="tag planned">Planned</span>
             </article>
-        </section>
-
-        <section class="dashboard-placeholder">
-            <h2>Simulator Area</h2>
-            <p>
-                The live dashboard will be added in the next phase.
-                This section will display vehicle speed, wheel speed,
-                brake input, steering angle, ECU status, and diagnostic faults.
-            </p>
-
-            <div class="placeholder-panel">
-                <div>
-                    <span>Vehicle Speed</span>
-                    <strong id="vehicle-speed">0 km/h</strong>
-                </div>
-
-                <div>
-                    <span>ABS Status</span>
-                    <strong id="abs-status">Inactive</strong>
-                </div>
-
-                <div>
-                    <span>EPS Status</span>
-                    <strong id="eps-status">Standby</strong>
-                </div>
-
-                <div>
-                    <span>DTC Count</span>
-                    <strong id="dtc-count">0</strong>
-                </div>
-            </div>
         </section>
 
     </main>
 
     <footer class="site-footer">
         <p>
-            Educational automotive embedded controls simulator.
-            Not intended for real vehicle deployment.
+            Educational simulator only. Not intended for real vehicle use.
         </p>
     </footer>
 

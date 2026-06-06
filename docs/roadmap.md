@@ -4,15 +4,27 @@
 
 Basic simulator screen.
 
-Planned items:
+Done:
+
+- project structure
+- landing section
+- dashboard placeholder
+- project notes
+
+## Version 0.2
+
+Driver inputs and vehicle model.
+
+Done:
 
 - throttle input
 - brake input
 - steering input
+- road surface mode
 - vehicle speed value
 - four wheel speed values
 
-## Version 0.2
+## Version 0.3
 
 ABS logic.
 
@@ -21,9 +33,9 @@ Planned items:
 - slip calculation
 - ABS active flag
 - brake pressure reduction
-- road surface modes
+- road surface tuning
 
-## Version 0.3
+## Version 0.4
 
 EPS logic.
 
@@ -34,7 +46,7 @@ Planned items:
 - assist torque output
 - EPS fault state
 
-## Version 0.4
+## Version 0.5
 
 Steering angle sensor checks.
 
@@ -45,7 +57,7 @@ Planned items:
 - range check
 - rate check
 
-## Version 0.5
+## Version 0.6
 
 Diagnostics and CAN view.
 
