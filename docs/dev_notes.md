@@ -27,9 +27,22 @@ Current outputs:
 
 The wheel speed model is still simple. It only gives enough signal variation to support the first ABS logic in the next phase.
 
+## Phase 3
+
+Added first pass ABS slip calculation.
+
+Current ABS behavior:
+
+- calculates slip for all four wheels
+- checks highest wheel slip
+- changes ABS state to active when slip is above limit
+- reduces brake output when ABS is active
+
+The ABS model is still very basic. It does not have a pressure increase, hold and decrease state machine yet.
+
 Next items:
 
-- calculate slip ratio for each wheel
-- add ABS active flag
-- reduce brake pressure when wheel slip is high
-- show basic ABS status on the dashboard
+- tune slip thresholds
+- add a better ABS pressure modulation step
+- show ABS state more clearly in the dashboard
+- later split ABS logic into a separate ECU file

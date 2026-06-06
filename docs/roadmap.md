@@ -28,12 +28,18 @@ Done:
 
 ABS logic.
 
-Planned items:
+Done:
 
 - slip calculation
 - ABS active flag
-- brake pressure reduction
-- road surface tuning
+- first brake pressure reduction
+- road surface based slip threshold
+
+Pending:
+
+- tune pressure modulation
+- split ABS code into a separate ECU module
+- improve visual ABS status
 
 ## Version 0.4
 

@@ -26,15 +26,37 @@
                 <h2>Project Objective</h2>
                 <p>
                     This project is being built as a simple public demo for chassis
-                    control logic. The current version adds driver inputs and a basic
-                    vehicle speed model.
+                    control logic. The current version focuses on ABS slip detection
+                    and readable braking behavior on different road surfaces.
                 </p>
             </div>
 
             <div class="status-box">
                 <span class="status-label">Current Build</span>
-                <strong>Phase 2</strong>
-                <small>Driver inputs and basic speed model</small>
+                <strong>Phase 3</strong>
+                <small>Basic ABS slip calculation</small>
+            </div>
+        </section>
+
+        <section class="dashboard-topbar">
+            <div class="topbar-item">
+                <span>Vehicle Speed</span>
+                <strong id="vehicle-speed">0 km/h</strong>
+            </div>
+
+            <div class="topbar-item">
+                <span>Road Mode</span>
+                <strong id="road-display">Dry</strong>
+            </div>
+
+            <div class="topbar-item">
+                <span>Brake Pressure</span>
+                <strong id="brake-pressure">0%</strong>
+            </div>
+
+            <div class="topbar-item abs-banner" id="abs-banner">
+                <span>ABS Status</span>
+                <strong id="abs-state">Inactive</strong>
             </div>
         </section>
 
@@ -70,30 +92,41 @@
                     <strong id="road-value">Dry</strong>
                 </label>
             </div>
+
+            <div class="preset-row">
+                <span class="preset-label">Quick Test Speed</span>
+                <button class="preset-btn" id="preset-30">30 km/h</button>
+                <button class="preset-btn" id="preset-60">60 km/h</button>
+                <button class="preset-btn" id="preset-100">100 km/h</button>
+                <button class="preset-btn reset-btn" id="preset-reset">Reset</button>
+            </div>
+            <p class="test-note">
+                ABS test: set speed to 60 or 100 km/h, select Wet or Ice, then apply brake above 60%.
+            </p>
         </section>
 
         <section class="dashboard-section">
-            <h2>Live Dashboard</h2>
+            <h2>Vehicle Overview</h2>
 
             <div class="dashboard-grid">
-                <div class="data-card">
-                    <span>Vehicle Speed</span>
-                    <strong id="vehicle-speed">0 km/h</strong>
-                </div>
-
-                <div class="data-card">
-                    <span>Brake Pressure</span>
-                    <strong id="brake-pressure">0%</strong>
-                </div>
-
                 <div class="data-card">
                     <span>Steering Angle</span>
                     <strong id="steering-display">0 deg</strong>
                 </div>
 
                 <div class="data-card">
-                    <span>Road Mode</span>
-                    <strong id="road-display">Dry</strong>
+                    <span>ABS Brake Output</span>
+                    <strong id="abs-brake-output">0%</strong>
+                </div>
+
+                <div class="data-card">
+                    <span>Highest Slip</span>
+                    <strong id="highest-slip">0%</strong>
+                </div>
+
+                <div class="data-card">
+                    <span>Intervention Wheel</span>
+                    <strong id="abs-wheel">None</strong>
                 </div>
             </div>
         </section>
@@ -124,13 +157,39 @@
             </div>
         </section>
 
+        <section class="dashboard-section">
+            <h2>ABS Monitor</h2>
+
+            <div class="wheel-grid slip-grid">
+                <div class="data-card">
+                    <span>FL Slip</span>
+                    <strong id="slip-fl">0%</strong>
+                </div>
+
+                <div class="data-card">
+                    <span>FR Slip</span>
+                    <strong id="slip-fr">0%</strong>
+                </div>
+
+                <div class="data-card">
+                    <span>RL Slip</span>
+                    <strong id="slip-rl">0%</strong>
+                </div>
+
+                <div class="data-card">
+                    <span>RR Slip</span>
+                    <strong id="slip-rr">0%</strong>
+                </div>
+            </div>
+        </section>
+
         <section class="module-grid">
             <article class="module-card">
                 <h3>ABS ECU</h3>
                 <p>
-                    Slip calculation will be added in the next phase.
+                    First slip calculation and brake pressure reduction logic is added.
                 </p>
-                <span class="tag planned">Next</span>
+                <span class="tag active">In Progress</span>
             </article>
 
             <article class="module-card">
