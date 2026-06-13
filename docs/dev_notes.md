@@ -29,7 +29,7 @@ The wheel speed model is still simple. It only gives enough signal variation to 
 
 ## Phase 3
 
-Added first pass ABS slip calculation.
+Added first pass ABS slip calculation and improved the demo timing.
 
 Current ABS behavior:
 
@@ -37,12 +37,14 @@ Current ABS behavior:
 - checks highest wheel slip
 - changes ABS state to active when slip is above limit
 - reduces brake output when ABS is active
+- keeps ABS state visible briefly so the demo is easier to follow
+- shows wheel speed and slip around a simple chassis view
 
-The ABS model is still very basic. It does not have a pressure increase, hold and decrease state machine yet.
+The ABS model is still basic. It does not have a pressure increase, hold and decrease state machine yet.
 
 Next items:
 
 - tune slip thresholds
-- add a better ABS pressure modulation step
-- show ABS state more clearly in the dashboard
-- later split ABS logic into a separate ECU file
+- improve brake pressure modulation
+- split ABS logic into a separate ECU file
+- add EPS assist logic

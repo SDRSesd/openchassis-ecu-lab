@@ -13,8 +13,7 @@
             <p class="eyebrow">Automotive Embedded Controls Simulator</p>
             <h1>OpenChassis ECU Lab</h1>
             <p class="subtitle">
-                Small browser based simulator for trying out ABS, EPS,
-                steering angle sensor logic and diagnostic states.
+                Browser based demo for basic ABS slip detection, brake intervention and chassis signal visualization.
             </p>
         </div>
     </header>
@@ -23,25 +22,24 @@
 
         <section class="hero-card">
             <div>
-                <h2>Project Objective</h2>
+                <h2>Phase 3 Release</h2>
                 <p>
-                    This project is being built as a simple public demo for chassis
-                    control logic. The current version focuses on ABS slip detection
-                    and readable braking behavior on different road surfaces.
+                    This build improves the ABS demo timing and adds a simple chassis dashboard view.
+                    The model is intentionally simplified so the braking and slip behavior can be observed clearly.
                 </p>
             </div>
 
             <div class="status-box">
                 <span class="status-label">Current Build</span>
                 <strong>Phase 3</strong>
-                <small>Basic ABS slip calculation</small>
+                <small>ABS demo and visual dashboard</small>
             </div>
         </section>
 
         <section class="dashboard-topbar">
             <div class="topbar-item">
                 <span>Vehicle Speed</span>
-                <strong id="vehicle-speed">0 km/h</strong>
+                <strong id="vehicle-speed">0.0 km/h</strong>
             </div>
 
             <div class="topbar-item">
@@ -60,60 +58,124 @@
             </div>
         </section>
 
-        <section class="control-panel">
-            <h2>Driver Inputs</h2>
+        <section class="simulator-layout">
 
-            <div class="control-grid">
-                <label class="control-card">
-                    <span>Throttle</span>
-                    <input id="throttle-input" type="range" min="0" max="100" value="0" />
-                    <strong id="throttle-value">0%</strong>
-                </label>
+            <section class="control-panel">
+                <h2>Driver Inputs</h2>
 
-                <label class="control-card">
-                    <span>Brake Pedal</span>
-                    <input id="brake-input" type="range" min="0" max="100" value="0" />
-                    <strong id="brake-value">0%</strong>
-                </label>
+                <div class="control-grid">
+                    <label class="control-card">
+                        <span>Throttle</span>
+                        <input id="throttle-input" type="range" min="0" max="100" value="0" />
+                        <strong id="throttle-value">0%</strong>
+                    </label>
 
-                <label class="control-card">
-                    <span>Steering Angle</span>
-                    <input id="steering-input" type="range" min="-540" max="540" value="0" />
-                    <strong id="steering-value">0 deg</strong>
-                </label>
+                    <label class="control-card">
+                        <span>Brake Pedal</span>
+                        <input id="brake-input" type="range" min="0" max="100" value="0" />
+                        <strong id="brake-value">0%</strong>
+                    </label>
 
-                <label class="control-card">
-                    <span>Road Surface</span>
-                    <select id="road-mode">
-                        <option value="dry">Dry</option>
-                        <option value="wet">Wet</option>
-                        <option value="ice">Ice</option>
-                    </select>
-                    <strong id="road-value">Dry</strong>
-                </label>
-            </div>
+                    <label class="control-card">
+                        <span>Steering Angle</span>
+                        <input id="steering-input" type="range" min="-540" max="540" value="0" />
+                        <strong id="steering-value">0 deg</strong>
+                    </label>
 
-            <div class="preset-row">
-                <span class="preset-label">Quick Test Speed</span>
-                <button class="preset-btn" id="preset-30">30 km/h</button>
-                <button class="preset-btn" id="preset-60">60 km/h</button>
-                <button class="preset-btn" id="preset-100">100 km/h</button>
-                <button class="preset-btn reset-btn" id="preset-reset">Reset</button>
-            </div>
-            <p class="test-note">
-                ABS test: set speed to 60 or 100 km/h, select Wet or Ice, then apply brake above 60%.
-            </p>
+                    <label class="control-card">
+                        <span>Road Surface</span>
+                        <select id="road-mode">
+                            <option value="dry">Dry</option>
+                            <option value="wet">Wet</option>
+                            <option value="ice">Ice</option>
+                        </select>
+                        <strong id="road-value">Dry</strong>
+                    </label>
+                </div>
+
+                <div class="preset-row">
+                    <span class="preset-label">Quick Test Speed</span>
+                    <button class="preset-btn" id="preset-30">30 km/h</button>
+                    <button class="preset-btn" id="preset-60">60 km/h</button>
+                    <button class="preset-btn" id="preset-100">100 km/h</button>
+                    <button class="preset-btn reset-btn" id="preset-reset">Reset</button>
+                </div>
+
+                <p class="test-note">
+                    ABS test: set speed to 60 or 100 km/h, select Wet or Ice, then apply brake above 60%.
+                </p>
+
+                <div class="pedal-row">
+                    <div class="pedal-card">
+                        <span>Throttle Pedal</span>
+                        <div class="pedal-track">
+                            <div class="pedal-fill throttle-fill" id="throttle-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="pedal-card">
+                        <span>Brake Pedal</span>
+                        <div class="pedal-track">
+                            <div class="pedal-fill brake-fill" id="brake-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="vehicle-visual-panel">
+                <div class="visual-header">
+                    <div>
+                        <h2>Chassis View</h2>
+                        <p>Wheel speed and slip view used for ABS observation.</p>
+                    </div>
+
+                    <div class="abs-lamp" id="abs-lamp">
+                        ABS
+                    </div>
+                </div>
+
+                <div class="car-stage">
+                    <div class="wheel-card wheel-fl">
+                        <span>FL</span>
+                        <strong id="wheel-fl">0.0</strong>
+                        <small id="slip-fl">0.0% slip</small>
+                    </div>
+
+                    <div class="wheel-card wheel-fr">
+                        <span>FR</span>
+                        <strong id="wheel-fr">0.0</strong>
+                        <small id="slip-fr">0.0% slip</small>
+                    </div>
+
+                    <div class="car-body">
+                        <div class="car-nose"></div>
+                        <div class="car-cabin">
+                            <span>OpenChassis</span>
+                            <strong>ABS Demo</strong>
+                        </div>
+                        <div class="car-tail"></div>
+                    </div>
+
+                    <div class="wheel-card wheel-rl">
+                        <span>RL</span>
+                        <strong id="wheel-rl">0.0</strong>
+                        <small id="slip-rl">0.0% slip</small>
+                    </div>
+
+                    <div class="wheel-card wheel-rr">
+                        <span>RR</span>
+                        <strong id="wheel-rr">0.0</strong>
+                        <small id="slip-rr">0.0% slip</small>
+                    </div>
+                </div>
+            </section>
+
         </section>
 
         <section class="dashboard-section">
-            <h2>Vehicle Overview</h2>
+            <h2>ABS Monitor</h2>
 
             <div class="dashboard-grid">
-                <div class="data-card">
-                    <span>Steering Angle</span>
-                    <strong id="steering-display">0 deg</strong>
-                </div>
-
                 <div class="data-card">
                     <span>ABS Brake Output</span>
                     <strong id="abs-brake-output">0%</strong>
@@ -121,64 +183,17 @@
 
                 <div class="data-card">
                     <span>Highest Slip</span>
-                    <strong id="highest-slip">0%</strong>
+                    <strong id="highest-slip">0.0%</strong>
                 </div>
 
                 <div class="data-card">
                     <span>Intervention Wheel</span>
                     <strong id="abs-wheel">None</strong>
                 </div>
-            </div>
-        </section>
-
-        <section class="dashboard-section">
-            <h2>Wheel Speed Values</h2>
-
-            <div class="wheel-grid">
-                <div class="data-card">
-                    <span>Front Left</span>
-                    <strong id="wheel-fl">0 km/h</strong>
-                </div>
 
                 <div class="data-card">
-                    <span>Front Right</span>
-                    <strong id="wheel-fr">0 km/h</strong>
-                </div>
-
-                <div class="data-card">
-                    <span>Rear Left</span>
-                    <strong id="wheel-rl">0 km/h</strong>
-                </div>
-
-                <div class="data-card">
-                    <span>Rear Right</span>
-                    <strong id="wheel-rr">0 km/h</strong>
-                </div>
-            </div>
-        </section>
-
-        <section class="dashboard-section">
-            <h2>ABS Monitor</h2>
-
-            <div class="wheel-grid slip-grid">
-                <div class="data-card">
-                    <span>FL Slip</span>
-                    <strong id="slip-fl">0%</strong>
-                </div>
-
-                <div class="data-card">
-                    <span>FR Slip</span>
-                    <strong id="slip-fr">0%</strong>
-                </div>
-
-                <div class="data-card">
-                    <span>RL Slip</span>
-                    <strong id="slip-rl">0%</strong>
-                </div>
-
-                <div class="data-card">
-                    <span>RR Slip</span>
-                    <strong id="slip-rr">0%</strong>
+                    <span>Steering Angle</span>
+                    <strong id="steering-display">0 deg</strong>
                 </div>
             </div>
         </section>
@@ -187,7 +202,7 @@
             <article class="module-card">
                 <h3>ABS ECU</h3>
                 <p>
-                    First slip calculation and brake pressure reduction logic is added.
+                    Basic wheel slip calculation and brake pressure reduction are active in this build.
                 </p>
                 <span class="tag active">In Progress</span>
             </article>
@@ -195,7 +210,7 @@
             <article class="module-card">
                 <h3>EPS ECU</h3>
                 <p>
-                    Speed based steering assist will be added after ABS logic.
+                    Speed based steering assist will be added after the ABS demo is stable.
                 </p>
                 <span class="tag planned">Planned</span>
             </article>

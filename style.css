@@ -19,7 +19,7 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     background:
-        radial-gradient(circle at top left, rgba(244, 176, 0, 0.08), transparent 32rem),
+        radial-gradient(circle at top left, rgba(244, 176, 0, 0.08), transparent 30rem),
         var(--bg-main);
     color: var(--text-main);
 }
@@ -30,32 +30,32 @@ body {
 }
 
 .eyebrow {
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.35rem;
     color: var(--accent);
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
 }
 
 h1 {
     margin: 0;
-    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
     line-height: 1;
 }
 
 h2,
 h3 {
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
 }
 
 .subtitle {
     max-width: 760px;
-    margin-top: 0.6rem;
+    margin-top: 0.55rem;
     color: var(--text-muted);
     font-size: 0.95rem;
-    line-height: 1.5;
+    line-height: 1.45;
 }
 
 .page-shell {
@@ -68,35 +68,35 @@ h3 {
 .control-panel,
 .dashboard-section,
 .module-card,
-.dashboard-topbar {
+.dashboard-topbar,
+.vehicle-visual-panel {
     background: linear-gradient(145deg, var(--bg-card), var(--bg-card-soft));
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 0.85rem;
+    padding: 0.9rem;
 }
 
 .hero-card {
     display: grid;
-    grid-template-columns: 1fr 200px;
-    gap: 0.7rem;
+    grid-template-columns: 1fr 210px;
+    gap: 0.8rem;
     align-items: stretch;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.75rem;
 }
 
 .hero-card p,
 .module-card p,
-.control-panel p,
-.dashboard-section p,
+.vehicle-visual-panel p,
 .site-footer p {
     color: var(--text-muted);
-    line-height: 1.6;
+    line-height: 1.55;
 }
 
 .status-box {
     border: 1px solid rgba(244, 176, 0, 0.35);
     background: var(--accent-soft);
     border-radius: 14px;
-    padding: 1rem;
+    padding: 0.9rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -104,13 +104,13 @@ h3 {
 
 .status-label {
     color: var(--text-muted);
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
 }
 
 .status-box strong {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin: 0.2rem 0;
 }
 
@@ -127,7 +127,8 @@ h3 {
 
 .topbar-item,
 .control-card,
-.data-card {
+.data-card,
+.pedal-card {
     background: #0f141d;
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -136,36 +137,42 @@ h3 {
 
 .topbar-item span,
 .control-card span,
-.data-card span {
+.data-card span,
+.pedal-card span {
     display: block;
     color: var(--text-muted);
-    font-size: 0.8rem;
-    margin-bottom: 0.55rem;
+    font-size: 0.78rem;
+    margin-bottom: 0.5rem;
 }
 
 .topbar-item strong,
 .control-card strong,
 .data-card strong {
     display: block;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
 }
 
 .abs-banner strong {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
 }
 
-.control-panel,
-.dashboard-section {
+.simulator-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 0.75rem;
     margin-bottom: 0.75rem;
 }
 
 .control-grid,
 .dashboard-grid,
-.wheel-grid,
 .module-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0.8rem;
+    gap: 0.75rem;
+}
+
+.control-grid {
+    grid-template-columns: repeat(2, 1fr);
 }
 
 input[type="range"] {
@@ -174,7 +181,7 @@ input[type="range"] {
 
 select {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.45rem;
     background: #111823;
     color: var(--text-main);
     border: 1px solid var(--border);
@@ -182,21 +189,21 @@ select {
 }
 
 .preset-row {
-    margin-top: 1rem;
+    margin-top: 0.85rem;
     display: flex;
     align-items: center;
-    gap: 0.7rem;
+    gap: 0.55rem;
     flex-wrap: wrap;
 }
 
 .preset-label {
     color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-right: 0.3rem;
+    font-size: 0.86rem;
+    margin-right: 0.2rem;
 }
 
 .preset-btn {
-    padding: 0.55rem 0.9rem;
+    padding: 0.48rem 0.8rem;
     border-radius: 10px;
     border: 1px solid var(--border);
     background: #101825;
@@ -211,6 +218,207 @@ select {
 
 .reset-btn {
     background: rgba(255, 77, 77, 0.08);
+}
+
+.test-note {
+    margin: 0.7rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.86rem;
+}
+
+.pedal-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 0.85rem;
+}
+
+.pedal-track {
+    height: 14px;
+    border-radius: 999px;
+    background: #070b11;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.pedal-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    transition: width 0.12s linear;
+}
+
+.throttle-fill {
+    background: var(--ok);
+}
+
+.brake-fill {
+    background: var(--danger);
+}
+
+.visual-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.visual-header p {
+    margin: -0.3rem 0 0.6rem;
+    font-size: 0.86rem;
+}
+
+.abs-lamp {
+    min-width: 70px;
+    text-align: center;
+    padding: 0.55rem 0.8rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.abs-lamp-active {
+    color: white;
+    background: rgba(255, 77, 77, 0.55);
+    border-color: rgba(255, 77, 77, 0.9);
+    box-shadow: 0 0 18px rgba(255, 77, 77, 0.25);
+}
+
+.car-stage {
+    position: relative;
+    min-height: 310px;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background:
+        linear-gradient(90deg, transparent 48%, rgba(244, 176, 0, 0.08) 49%, rgba(244, 176, 0, 0.08) 51%, transparent 52%),
+        #0d131d;
+    overflow: hidden;
+}
+
+.car-stage::before,
+.car-stage::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(157, 167, 184, 0.12);
+}
+
+.car-stage::before {
+    left: 18%;
+}
+
+.car-stage::after {
+    right: 18%;
+}
+
+.car-body {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 210px;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(244, 176, 0, 0.35);
+    border-radius: 45px 45px 30px 30px;
+    background:
+        linear-gradient(180deg, rgba(244, 176, 0, 0.12), transparent),
+        #151d2a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0.5rem;
+}
+
+.car-nose,
+.car-tail {
+    width: 72px;
+    height: 18px;
+    border-radius: 999px;
+    background: rgba(244, 176, 0, 0.18);
+}
+
+.car-cabin {
+    width: 95px;
+    height: 95px;
+    border-radius: 24px;
+    background: #0f141d;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.car-cabin span {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+}
+
+.car-cabin strong {
+    font-size: 0.95rem;
+}
+
+.wheel-card {
+    position: absolute;
+    width: 115px;
+    min-height: 76px;
+    border-radius: 14px;
+    background: #0f141d;
+    border: 1px solid var(--border);
+    padding: 0.7rem;
+    z-index: 2;
+}
+
+.wheel-card span {
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.wheel-card strong {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 1.1rem;
+}
+
+.wheel-card small {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--text-muted);
+}
+
+.wheel-slip-active {
+    border-color: rgba(255, 77, 77, 0.75);
+    background: rgba(255, 77, 77, 0.1);
+}
+
+.wheel-fl {
+    left: 7%;
+    top: 14%;
+}
+
+.wheel-fr {
+    right: 7%;
+    top: 14%;
+}
+
+.wheel-rl {
+    left: 7%;
+    bottom: 14%;
+}
+
+.wheel-rr {
+    right: 7%;
+    bottom: 14%;
+}
+
+.dashboard-section {
+    margin-bottom: 0.75rem;
 }
 
 .tag {
@@ -229,10 +437,6 @@ select {
 .tag.active {
     background: rgba(65, 209, 125, 0.15);
     color: var(--ok);
-}
-
-.slip-grid {
-    margin-top: 0.2rem;
 }
 
 .abs-active {
@@ -260,30 +464,33 @@ select {
     border-top: 1px solid var(--border);
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1180px) {
+    .simulator-layout {
+        grid-template-columns: 1fr;
+    }
+
     .dashboard-topbar,
-    .control-grid,
     .dashboard-grid,
-    .wheel-grid,
     .module-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
-    .hero-card {
-        grid-template-columns: 1fr;
-    }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 760px) {
+    .hero-card,
     .dashboard-topbar,
     .control-grid,
     .dashboard-grid,
-    .wheel-grid,
-    .module-grid {
+    .module-grid,
+    .pedal-row {
         grid-template-columns: 1fr;
     }
 
-    .site-header {
-        padding-top: 2rem;
+    .car-stage {
+        min-height: 360px;
+    }
+
+    .wheel-card {
+        width: 100px;
     }
 }

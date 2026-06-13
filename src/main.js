@@ -1,8 +1,9 @@
 /*
  * OpenChassis ECU Lab
- * Phase 3
+ * Phase 3 Release
  *
- * Improves ABS readability and adds quick speed presets.
+ * ABS demo timing and visual dashboard update.
+ * This is a simplified browser model for demonstration only.
  */
 
 const inputs = {
@@ -67,17 +68,20 @@ const ui = {
     wheelRl: document.getElementById("wheel-rl"),
     wheelRr: document.getElementById("wheel-rr"),
 
-    absState: document.getElementById("abs-state"),
-    absBrakeOutput: document.getElementById("abs-brake-output"),
-    highestSlip: document.getElementById("highest-slip"),
-    absWheel: document.getElementById("abs-wheel"),
-
     slipFl: document.getElementById("slip-fl"),
     slipFr: document.getElementById("slip-fr"),
     slipRl: document.getElementById("slip-rl"),
     slipRr: document.getElementById("slip-rr"),
 
+    absState: document.getElementById("abs-state"),
+    absBrakeOutput: document.getElementById("abs-brake-output"),
+    highestSlip: document.getElementById("highest-slip"),
+    absWheel: document.getElementById("abs-wheel"),
     absBanner: document.getElementById("abs-banner"),
+    absLamp: document.getElementById("abs-lamp"),
+
+    throttleBar: document.getElementById("throttle-bar"),
+    brakeBar: document.getElementById("brake-bar"),
 
     preset30: document.getElementById("preset-30"),
     preset60: document.getElementById("preset-60"),
@@ -96,9 +100,9 @@ function updateVehicleModel() {
     const grip = roadGrip[inputs.roadMode];
 
     /*
-    * Slower values are used intentionally so that the demo can be understood
-    * by looking at the dashboard. This is not a real vehicle dynamics model.
-    */
+     * Values are intentionally slowed down for the browser demo.
+     * The target here is readability, not a full vehicle dynamics model.
+     */
     const throttleRequest = inputs.brake > 5 ? inputs.throttle * 0.004 : inputs.throttle * 0.018;
     const brakeRequest = inputs.brake * 0.018 * grip;
     const rollingLoss = 0.006 + vehicleState.speedKph * 0.00035;
@@ -125,6 +129,10 @@ function updateWheelSpeeds(grip) {
     const steeringEffect = Math.abs(inputs.steeringAngle) / 540;
     const brakeEffect = inputs.brake / 100;
 
+    /*
+     * Low grip creates more wheel speed drop during braking.
+     * This gives the ABS logic visible slip values for the demo.
+     */
     const frontWheelDrop = brakeEffect * (1 - grip) * 55;
     const rearWheelDrop = brakeEffect * (1 - grip) * 38;
 
@@ -154,6 +162,7 @@ function updateAbsLogic() {
     const brakeRequest = inputs.brake;
 
     let activeThisCycle = false;
+
     absState.highestSlip = 0;
     absState.interventionWheel = "None";
 
@@ -175,7 +184,7 @@ function updateAbsLogic() {
 
     absState.active = activeThisCycle || now < absState.holdUntil;
 
-    if (!absState.active) {
+    if (!absState.active && now >= absState.displayHoldUntil) {
         absState.interventionWheel = "None";
     }
 
@@ -231,6 +240,18 @@ function limitSpeed(value) {
 }
 
 function updateDisplay() {
+    const now = Date.now();
+
+    const displaySlip = now < absState.displayHoldUntil
+        ? Math.max(absState.highestSlip, absState.lastHighestSlip)
+        : absState.highestSlip;
+
+    const displayWheel = absState.active
+        ? absState.interventionWheel
+        : now < absState.displayHoldUntil
+            ? absState.lastInterventionWheel
+            : "None";
+
     ui.throttleValue.textContent = `${inputs.throttle}%`;
     ui.brakeValue.textContent = `${inputs.brake}%`;
     ui.steeringValue.textContent = `${inputs.steeringAngle} deg`;
@@ -247,6 +268,11 @@ function updateDisplay() {
     ui.wheelRl.textContent = `${vehicleState.wheelSpeed.rl.toFixed(1)} km/h`;
     ui.wheelRr.textContent = `${vehicleState.wheelSpeed.rr.toFixed(1)} km/h`;
 
+    ui.slipFl.textContent = `${(absState.slip.fl * 100).toFixed(1)}% slip`;
+    ui.slipFr.textContent = `${(absState.slip.fr * 100).toFixed(1)}% slip`;
+    ui.slipRl.textContent = `${(absState.slip.rl * 100).toFixed(1)}% slip`;
+    ui.slipRr.textContent = `${(absState.slip.rr * 100).toFixed(1)}% slip`;
+
     ui.absState.textContent = absState.active ? "ACTIVE" : "Inactive";
     ui.absState.className = absState.active ? "abs-active" : "abs-normal";
 
@@ -254,23 +280,35 @@ function updateDisplay() {
         ? "topbar-item abs-banner abs-card-active"
         : "topbar-item abs-banner abs-card-normal";
 
+    ui.absLamp.className = absState.active
+        ? "abs-lamp abs-lamp-active"
+        : "abs-lamp";
+
     ui.absBrakeOutput.textContent = `${absState.brakeOutput.toFixed(0)}%`;
-    const now = Date.now();
-    const displaySlip = now < absState.displayHoldUntil
-        ? Math.max(absState.highestSlip, absState.lastHighestSlip)
-        : absState.highestSlip;
-
     ui.highestSlip.textContent = `${(displaySlip * 100).toFixed(1)}%`;
-    ui.absWheel.textContent = absState.active
-        ? absState.interventionWheel
-        : now < absState.displayHoldUntil
-            ? absState.lastInterventionWheel
-            : "None";
+    ui.absWheel.textContent = displayWheel;
 
-    ui.slipFl.textContent = `${(absState.slip.fl * 100).toFixed(1)}%`;
-    ui.slipFr.textContent = `${(absState.slip.fr * 100).toFixed(1)}%`;
-    ui.slipRl.textContent = `${(absState.slip.rl * 100).toFixed(1)}%`;
-    ui.slipRr.textContent = `${(absState.slip.rr * 100).toFixed(1)}%`;
+    ui.throttleBar.style.width = `${inputs.throttle}%`;
+    ui.brakeBar.style.width = `${inputs.brake}%`;
+
+    updateWheelCardState("fl", absState.slip.fl);
+    updateWheelCardState("fr", absState.slip.fr);
+    updateWheelCardState("rl", absState.slip.rl);
+    updateWheelCardState("rr", absState.slip.rr);
+}
+
+function updateWheelCardState(wheel, slipValue) {
+    const element = document.querySelector(`.wheel-${wheel}`);
+
+    if (!element) {
+        return;
+    }
+
+    if (absState.active && slipValue > getSlipLimit()) {
+        element.classList.add("wheel-slip-active");
+    } else {
+        element.classList.remove("wheel-slip-active");
+    }
 }
 
 function getRoadLabel(mode) {
@@ -303,6 +341,9 @@ function resetSimulator() {
     absState.highestSlip = 0;
     absState.interventionWheel = "None";
     absState.holdUntil = 0;
+    absState.displayHoldUntil = 0;
+    absState.lastHighestSlip = 0;
+    absState.lastInterventionWheel = "None";
 
     ui.throttleInput.value = 0;
     ui.brakeInput.value = 0;

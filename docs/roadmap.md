@@ -26,7 +26,7 @@ Done:
 
 ## Version 0.3
 
-ABS logic.
+ABS logic and visual demo.
 
 Done:
 
@@ -34,12 +34,15 @@ Done:
 - ABS active flag
 - first brake pressure reduction
 - road surface based slip threshold
+- ABS visibility hold
+- simple chassis view
+- wheel speed and slip display
 
 Pending:
 
 - tune pressure modulation
 - split ABS code into a separate ECU module
-- improve visual ABS status
+- improve ABS pressure state handling
 
 ## Version 0.4
 
