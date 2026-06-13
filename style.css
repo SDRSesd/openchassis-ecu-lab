@@ -457,6 +457,84 @@ select {
     border-color: var(--border);
 }
 
+.event-board {
+    margin-top: 0.85rem;
+    border: 1px solid rgba(244, 176, 0, 0.28);
+    border-radius: 14px;
+    background:
+        linear-gradient(145deg, rgba(244, 176, 0, 0.08), transparent),
+        #0f141d;
+    padding: 0.9rem;
+}
+
+.event-board-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.event-label {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+
+.event-board h3 {
+    margin: 0.25rem 0 0;
+    font-size: 1.05rem;
+}
+
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.65rem;
+}
+
+.event-grid div {
+    border: 1px solid var(--border);
+    background: #0b1018;
+    border-radius: 12px;
+    padding: 0.7rem;
+}
+
+.event-grid span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-bottom: 0.35rem;
+}
+
+.event-grid strong {
+    font-size: 1rem;
+}
+
+.event-explanation {
+    margin: 0.75rem 0 0;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.event-board-active {
+    border-color: rgba(255, 77, 77, 0.5);
+    box-shadow: 0 0 0 1px rgba(255, 77, 77, 0.12) inset;
+}
+
+@media (max-width: 1180px) {
+    .event-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 760px) {
+    .event-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 .site-footer {
     width: min(1380px, 94vw);
     margin: 0 auto;

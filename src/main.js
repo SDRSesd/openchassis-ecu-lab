@@ -41,6 +41,18 @@ const absState = {
     }
 };
 
+const absEvent = {
+    captured: false,
+    roadMode: "-",
+    brakeRequest: 0,
+    brakeOutput: 0,
+    pressureReduction: 0,
+    highestSlip: 0,
+    interventionWheel: "None",
+    speedKph: 0,
+    slipThreshold: 0
+};
+
 const roadGrip = {
     dry: 1.0,
     wet: 0.72,
@@ -86,7 +98,20 @@ const ui = {
     preset30: document.getElementById("preset-30"),
     preset60: document.getElementById("preset-60"),
     preset100: document.getElementById("preset-100"),
-    presetReset: document.getElementById("preset-reset")
+    presetReset: document.getElementById("preset-reset"),
+
+    clearEvent: document.getElementById("clear-event"),
+    absEventBoard: document.getElementById("abs-event-board"),
+    eventTitle: document.getElementById("event-title"),
+    eventRoad: document.getElementById("event-road"),
+    eventBrakeRequest: document.getElementById("event-brake-request"),
+    eventBrakeOutput: document.getElementById("event-brake-output"),
+    eventPressureReduction: document.getElementById("event-pressure-reduction"),
+    eventSlip: document.getElementById("event-slip"),
+    eventWheel: document.getElementById("event-wheel"),
+    eventSpeed: document.getElementById("event-speed"),
+    eventThreshold: document.getElementById("event-threshold"),
+    eventExplanation: document.getElementById("event-explanation")
 };
 
 function readInputs() {
@@ -178,6 +203,8 @@ function updateAbsLogic() {
         absState.lastHighestSlip = absState.highestSlip;
         absState.lastInterventionWheel = absState.interventionWheel;
         absState.brakeOutput = Math.max(20, brakeRequest * 0.62);
+
+        captureAbsEvent(slipLimit);
     } else {
         absState.brakeOutput = brakeRequest;
     }
@@ -196,6 +223,34 @@ function updateAbsLogic() {
             absState.interventionWheel = label;
         }
     }
+}
+
+function captureAbsEvent(slipLimit) {
+    /*
+     * The event board stores the last ABS intervention so the user can
+     * understand what happened after the live values settle.
+     */
+    absEvent.captured = true;
+    absEvent.roadMode = getRoadLabel(inputs.roadMode);
+    absEvent.brakeRequest = inputs.brake;
+    absEvent.brakeOutput = absState.brakeOutput;
+    absEvent.pressureReduction = inputs.brake - absState.brakeOutput;
+    absEvent.highestSlip = absState.highestSlip;
+    absEvent.interventionWheel = absState.interventionWheel;
+    absEvent.speedKph = vehicleState.speedKph;
+    absEvent.slipThreshold = slipLimit;
+}
+
+function clearAbsEvent() {
+    absEvent.captured = false;
+    absEvent.roadMode = "-";
+    absEvent.brakeRequest = 0;
+    absEvent.brakeOutput = 0;
+    absEvent.pressureReduction = 0;
+    absEvent.highestSlip = 0;
+    absEvent.interventionWheel = "None";
+    absEvent.speedKph = 0;
+    absEvent.slipThreshold = 0;
 }
 
 function calculateWheelSlip() {
@@ -295,6 +350,41 @@ function updateDisplay() {
     updateWheelCardState("fr", absState.slip.fr);
     updateWheelCardState("rl", absState.slip.rl);
     updateWheelCardState("rr", absState.slip.rr);
+
+    updateAbsEventBoard();
+}
+
+function updateAbsEventBoard() {
+    if (!absEvent.captured) {
+        ui.absEventBoard.classList.remove("event-board-active");
+        ui.eventTitle.textContent = "No ABS event captured yet";
+        ui.eventRoad.textContent = "-";
+        ui.eventBrakeRequest.textContent = "-";
+        ui.eventBrakeOutput.textContent = "-";
+        ui.eventPressureReduction.textContent = "-";
+        ui.eventSlip.textContent = "-";
+        ui.eventWheel.textContent = "-";
+        ui.eventSpeed.textContent = "-";
+        ui.eventThreshold.textContent = "-";
+        ui.eventExplanation.textContent =
+            "Run the test with 60 or 100 km/h, select Wet or Ice, and apply brake above 60%.";
+        return;
+    }
+
+    ui.absEventBoard.classList.add("event-board-active");
+    ui.eventTitle.textContent = "ABS intervention captured";
+
+    ui.eventRoad.textContent = absEvent.roadMode;
+    ui.eventBrakeRequest.textContent = `${absEvent.brakeRequest.toFixed(0)}%`;
+    ui.eventBrakeOutput.textContent = `${absEvent.brakeOutput.toFixed(0)}%`;
+    ui.eventPressureReduction.textContent = `${absEvent.pressureReduction.toFixed(0)}%`;
+    ui.eventSlip.textContent = `${(absEvent.highestSlip * 100).toFixed(1)}%`;
+    ui.eventWheel.textContent = absEvent.interventionWheel;
+    ui.eventSpeed.textContent = `${absEvent.speedKph.toFixed(1)} km/h`;
+    ui.eventThreshold.textContent = `${(absEvent.slipThreshold * 100).toFixed(1)}%`;
+
+    ui.eventExplanation.textContent =
+        "Wheel slip crossed the ABS threshold. The controller reduced brake output to help the wheel recover traction instead of continuing with the full brake request.";
 }
 
 function updateWheelCardState(wheel, slipValue) {
@@ -349,6 +439,8 @@ function resetSimulator() {
     ui.brakeInput.value = 0;
     ui.steeringInput.value = 0;
     ui.roadMode.value = "dry";
+
+    clearAbsEvent();
 }
 
 function bindEvents() {
@@ -356,6 +448,10 @@ function bindEvents() {
     ui.preset60.addEventListener("click", () => setVehicleSpeed(60));
     ui.preset100.addEventListener("click", () => setVehicleSpeed(100));
     ui.presetReset.addEventListener("click", resetSimulator);
+
+    if (ui.clearEvent) {
+        ui.clearEvent.addEventListener("click", clearAbsEvent);
+    }
 }
 
 function simulatorStep() {

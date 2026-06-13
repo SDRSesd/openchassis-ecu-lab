@@ -196,6 +196,63 @@
                     <strong id="steering-display">0 deg</strong>
                 </div>
             </div>
+
+            <div class="event-board" id="abs-event-board">
+                <div class="event-board-header">
+                    <div>
+                        <span class="event-label">Last ABS Event</span>
+                        <h3 id="event-title">No ABS event captured yet</h3>
+                    </div>
+
+                    <button class="preset-btn" id="clear-event">Clear</button>
+                </div>
+
+                <div class="event-grid">
+                    <div>
+                        <span>Road</span>
+                        <strong id="event-road">-</strong>
+                    </div>
+
+                    <div>
+                        <span>Brake Request</span>
+                        <strong id="event-brake-request">-</strong>
+                    </div>
+
+                    <div>
+                        <span>ABS Output</span>
+                        <strong id="event-brake-output">-</strong>
+                    </div>
+
+                    <div>
+                        <span>Pressure Reduced</span>
+                        <strong id="event-pressure-reduction">-</strong>
+                    </div>
+
+                    <div>
+                        <span>Highest Slip</span>
+                        <strong id="event-slip">-</strong>
+                    </div>
+
+                    <div>
+                        <span>Intervention Wheel</span>
+                        <strong id="event-wheel">-</strong>
+                    </div>
+
+                    <div>
+                        <span>Speed at Event</span>
+                        <strong id="event-speed">-</strong>
+                    </div>
+
+                    <div>
+                        <span>ABS Threshold</span>
+                        <strong id="event-threshold">-</strong>
+                    </div>
+                </div>
+
+                <p class="event-explanation" id="event-explanation">
+                    Run the test with 60 or 100 km/h, select Wet or Ice, and apply brake above 60%.
+                </p>
+            </div>
         </section>
 
         <section class="module-grid">
