@@ -1,0 +1,31 @@
+<svg width="560" height="190" viewBox="0 0 560 190" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">SDRS Club logo</title>
+  <desc id="desc">Professional SDRS Club motorsport styled logo for OpenChassis ECU Lab.</desc>
+  <defs>
+    <linearGradient id="gold" x1="62" y1="28" x2="480" y2="160" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE08A"/>
+      <stop offset="0.45" stop-color="#F4B000"/>
+      <stop offset="1" stop-color="#B76E00"/>
+    </linearGradient>
+    <linearGradient id="dark" x1="40" y1="24" x2="520" y2="168" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#192130"/>
+      <stop offset="1" stop-color="#070B11"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-30%" width="140%" height="160%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#F4B000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect x="16" y="18" width="528" height="154" rx="38" fill="url(#dark)" stroke="rgba(244,176,0,0.78)" stroke-width="4"/>
+  <path d="M50 130 L96 60 H134 L88 130 H50Z" fill="url(#gold)" filter="url(#glow)"/>
+  <path d="M112 130 L158 60 H196 L150 130 H112Z" fill="url(#gold)" opacity="0.78"/>
+  <path d="M174 130 L220 60 H258 L212 130 H174Z" fill="url(#gold)" opacity="0.48"/>
+
+  <text x="286" y="92" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="900" letter-spacing="5" fill="#F6F8FB">SDRS</text>
+  <text x="286" y="130" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800" letter-spacing="8" fill="url(#gold)">CLUB</text>
+
+  <path d="M382 132 H504" stroke="url(#gold)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M393 58 H504" stroke="url(#gold)" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+  <circle cx="514" cy="58" r="5" fill="#F4B000"/>
+  <circle cx="514" cy="132" r="5" fill="#F4B000"/>
+</svg>

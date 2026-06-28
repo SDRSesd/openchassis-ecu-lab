@@ -98,3 +98,8 @@ It does not include:
 - real CAN driver
 
 Those can be added later if needed.
+## Ownership and usage notice
+
+© 2026 SDRS Club. All rights reserved.
+
+OpenChassis ECU Lab is shared as a demo and educational portfolio build. Unauthorized copying, redistribution, resale, rebranding, or commercial use of this demo, design, content, or source files is not permitted without written permission from SDRS Club.

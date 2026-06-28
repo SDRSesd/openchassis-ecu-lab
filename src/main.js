@@ -114,6 +114,31 @@ const ui = {
     eventExplanation: document.getElementById("event-explanation")
 };
 
+
+function bindContentProtection() {
+    document.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+    });
+
+    document.addEventListener("dragstart", (event) => {
+        if (event.target && event.target.tagName === "IMG") {
+            event.preventDefault();
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+        const key = event.key.toLowerCase();
+        const blockedShortcut =
+            event.key === "F12" ||
+            (event.ctrlKey && event.shiftKey && ["i", "j", "c"].includes(key)) ||
+            (event.ctrlKey && ["u", "s"].includes(key));
+
+        if (blockedShortcut) {
+            event.preventDefault();
+        }
+    });
+}
+
 function readInputs() {
     inputs.throttle = Number(ui.throttleInput.value);
     inputs.brake = Number(ui.brakeInput.value);
@@ -463,6 +488,7 @@ function simulatorStep() {
     window.requestAnimationFrame(simulatorStep);
 }
 
+bindContentProtection();
 bindEvents();
 updateDisplay();
 simulatorStep();

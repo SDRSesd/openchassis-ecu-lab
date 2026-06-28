@@ -22,11 +22,81 @@ body {
         radial-gradient(circle at top left, rgba(244, 176, 0, 0.08), transparent 30rem),
         var(--bg-main);
     color: var(--text-main);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+button,
+input,
+select {
+    -webkit-user-select: auto;
+    user-select: auto;
 }
 
 .site-header {
-    padding: 0.9rem 6vw 0.7rem;
-    border-bottom: 1px solid var(--border);
+    padding: 0.85rem 6vw;
+    border-bottom: 1px solid rgba(244, 176, 0, 0.24);
+    background:
+        radial-gradient(circle at top left, rgba(244, 176, 0, 0.14), transparent 28rem),
+        linear-gradient(135deg, rgba(21, 26, 35, 0.98), rgba(7, 11, 17, 0.96));
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+}
+
+.header-inner {
+    width: min(1380px, 94vw);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+}
+
+.brand-logo-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 154px;
+    min-width: 154px;
+    text-decoration: none;
+    filter: drop-shadow(0 0 14px rgba(244, 176, 0, 0.18));
+}
+
+.header-brand-logo {
+    width: 154px;
+    height: auto;
+    display: block;
+}
+
+.header-copy {
+    min-width: 0;
+}
+
+.protection-chip {
+    min-width: 168px;
+    border: 1px solid rgba(244, 176, 0, 0.34);
+    background:
+        linear-gradient(145deg, rgba(244, 176, 0, 0.14), rgba(244, 176, 0, 0.03)),
+        rgba(15, 20, 29, 0.9);
+    border-radius: 16px;
+    padding: 0.72rem 0.85rem;
+    text-align: right;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.protection-chip span,
+.protection-chip small {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.protection-chip strong {
+    display: block;
+    margin: 0.22rem 0;
+    color: var(--text-main);
+    font-size: 0.9rem;
 }
 
 .eyebrow {
@@ -539,7 +609,97 @@ select {
     width: min(1380px, 94vw);
     margin: 0 auto;
     padding: 1rem 0 2rem;
-    border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    border: 1px solid rgba(244, 176, 0, 0.22);
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at bottom left, rgba(244, 176, 0, 0.12), transparent 25rem),
+        linear-gradient(145deg, rgba(21, 26, 35, 0.95), rgba(11, 16, 24, 0.96));
+    padding: 0.9rem;
+}
+
+.footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 255px;
+}
+
+.footer-brand-logo {
+    width: 118px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 12px rgba(244, 176, 0, 0.16));
+}
+
+.footer-brand strong,
+.footer-brand span {
+    display: block;
+}
+
+.footer-brand strong {
+    font-size: 1rem;
+}
+
+.footer-brand span {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    margin-top: 0.18rem;
+}
+
+.footer-legal {
+    text-align: right;
+}
+
+.footer-legal p {
+    margin: 0;
+}
+
+.footer-legal small {
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+}
+
+@media (max-width: 860px) {
+    .header-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        justify-items: center;
+    }
+
+    .brand-logo-wrap,
+    .header-brand-logo {
+        width: 142px;
+        min-width: 142px;
+    }
+
+    .protection-chip {
+        min-width: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-brand {
+        justify-content: center;
+        min-width: 0;
+    }
+
+    .footer-legal {
+        text-align: center;
+    }
 }
 
 @media (max-width: 1180px) {

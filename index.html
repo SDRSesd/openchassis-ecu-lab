@@ -4,17 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OpenChassis ECU Lab</title>
+    <meta name="author" content="SDRS Club" />
+    <meta name="copyright" content="© 2026 SDRS Club. All rights reserved." />
+    <meta name="application-name" content="OpenChassis ECU Lab" />
+    <link rel="icon" href="assets/sdrs-club-logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
     <header class="site-header">
-        <div>
-            <p class="eyebrow">Automotive Embedded Controls Simulator</p>
-            <h1>OpenChassis ECU Lab</h1>
-            <p class="subtitle">
-                Browser based demo for basic ABS slip detection, brake intervention and chassis signal visualization.
-            </p>
+        <div class="header-inner">
+            <a class="brand-logo-wrap" href="./" aria-label="SDRS Club home">
+                <img class="header-brand-logo" src="assets/sdrs-club-logo.svg" alt="SDRS Club logo" draggable="false" />
+            </a>
+
+            <div class="header-copy">
+                <p class="eyebrow">Automotive Embedded Controls Simulator</p>
+                <h1>OpenChassis ECU Lab</h1>
+                <p class="subtitle">
+                    Browser based demo for basic ABS slip detection, brake intervention and chassis signal visualization.
+                </p>
+            </div>
+
+            <div class="protection-chip" aria-label="Copyright notice">
+                <span>Protected Demo</span>
+                <strong>© 2026 SDRS Club</strong>
+                <small>All rights reserved</small>
+            </div>
         </div>
     </header>
 
@@ -292,9 +308,24 @@
     </main>
 
     <footer class="site-footer">
-        <p>
-            Educational simulator only. Not intended for real vehicle use.
-        </p>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img class="footer-brand-logo" src="assets/sdrs-club-logo.svg" alt="SDRS Club logo" draggable="false" />
+                <div>
+                    <strong>SDRS Club</strong>
+                    <span>OpenChassis ECU Lab</span>
+                </div>
+            </div>
+
+            <div class="footer-legal">
+                <p>
+                    © 2026 SDRS Club. All rights reserved. OpenChassis ECU Lab is an educational demo build only and is not intended for real vehicle use.
+                </p>
+                <small>
+                    Unauthorized copying, redistribution, resale, rebranding or commercial use of this demo, design, content or source files is not permitted without written permission.
+                </small>
+            </div>
+        </div>
     </footer>
 
     <script src="src/main.js"></script>
